@@ -13,6 +13,7 @@ from time import sleep
 import httpx
 from django.http import HttpResponse
 
+# aqui é uma função para rodar o async
 async def http_call_async():
     l = ['Estou', 'fazendo','execicio', 'ebac']
     for num in l:
@@ -23,7 +24,7 @@ async def http_call_async():
         r = await client.get('https://httpbin.org')
         print(r)
 
-
+# aqui é uma função para rodar o sync
 def http_call_sync():
     for num in range(1,6):
         sleep(1)
@@ -31,7 +32,7 @@ def http_call_sync():
     r = httpx.get("https://httpbin.org")
     print(r)
 
-
+# aqui ele vai apresentar no http funçao async:
 async def async_view(request):
     loop = asyncio.get_event_loop()
     loop.create_task(http_call_async())
@@ -39,7 +40,7 @@ async def async_view(request):
     exec = "Eu estou fazendo meu execício ebac!"
     return HttpResponse(texto)
 
-
+# aqui ele vai apresentar no http sync:
 def sync_views(request):
     http_call_sync()
     return HttpResponse("Blocking HTTP request")
